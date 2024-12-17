@@ -16,8 +16,27 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.contrib.auth import views as auth_views
+from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/user/", include("user.urls")),
+    path(
+        "password/reset/",
+        auth_views.PasswordResetView.as_view(),
+        name="password_reset",
+    ),
+    # Bestätige Token aus dem E-Mail-Link
+    path(
+        "password/reset/confirm/<uidb64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
+    # Erfolgsmeldung nach dem Reset
+    path(
+        "password/reset/complete/",
+        auth_views.PasswordResetCompleteView.as_view(),
+        name="password_reset_complete",
+    ),
 ]
