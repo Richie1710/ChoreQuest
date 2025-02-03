@@ -94,3 +94,12 @@ class CharacterSerializer(serializers.ModelSerializer):
         if data["experience_points"] < 0:
             raise serializers.ValidationError({"experience_points": "Experience points must be a positive integer."})
         return data
+
+    def create(self, validated_data: dict[str, Any]) -> Character:
+        """Create a new Character instance with the provided validated data."""
+        inventory_data = validated_data.pop("inventory", [])
+        character = super().create(validated_data)
+
+        for item_data in inventory_data:
+            InventoryItem.objects.create(character=character, **item_data)
+        return character
