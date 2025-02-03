@@ -1,4 +1,4 @@
-"""Inits the tests for user module."""
+"""Initializes the Django environment for the tests for charatcer module."""
 import os
 
 import django

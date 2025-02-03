@@ -1,0 +1,15 @@
+{
+    "python.testing.unittestEnabled": true,  // Aktiviere unittest
+    "python.testing.autoTestDiscoverOnSaveEnabled": true,  // Tests automatisch entdecken
+    "terminal.integrated.env.linux": {
+        "DJANGO_SETTINGS_MODULE": "chorequest.settings"  // Setze die Django-Einstellungen
+    },
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./chorequest",
+        "-p",
+        "test_*.py"
+    ],
+    "python.testing.pytestEnabled": false
+}
