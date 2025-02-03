@@ -32,10 +32,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         if data["password"] != data["confirm_password"]:
             raise serializers.ValidationError({"detail": "Passwords do not match."})
 
-        # Sicherstellen, dass die E-Mail-Adresse noch nicht existiert
-        if User.objects.filter(email=data["email"]).exists():
-            raise serializers.ValidationError({"detail": "Email already exists."})
-
         return data
 
     def create(self, validated_data: dict) -> AuthUser:
