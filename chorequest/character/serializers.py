@@ -13,6 +13,7 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class for ItemSerializer."""
 
+        model = Item
         fields: ClassVar[list[str]] = ["id", "name", "description", "stacksize", "weight", "icon"]
 
     def get_icon_url(self, obj: Item) -> "str | None":
