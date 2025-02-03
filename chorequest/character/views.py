@@ -30,4 +30,7 @@ class CharacterViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self) -> QuerySet:
         """Gib nur die Charaktere des aktuellen Benutzers zurück."""
-        return Character.objects.filter(user=self.request.user)
+        user = self.request.user
+        if user.is_authenticated:
+            return Character.objects.filter(user=user)
+        return Character.objects.none()
