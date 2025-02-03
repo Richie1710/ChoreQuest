@@ -15,6 +15,7 @@ dependencies = [
     "coverage>=7.6.9",
     "factory-boy>=3.3.1",
     "drf-yasg>=1.21.8",
+    "pytest-django>=4.9.0",
 ]
 
 
@@ -98,11 +99,22 @@ docstring-code-format = false
 docstring-code-line-length = "dynamic"
 
 [tool.ruff.lint.per-file-ignores]
-"**/tests/test_*.py" = ["PT009"]
+"**/tests/test_*.py" = ["PT009", "S101"]
 
 [dependency-groups]
 dev = [
     "pre-commit>=4.1.0",
     "pytest>=8.3.4",
     "pytest-cov>=6.0.0",
+]
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "*/migrations/*",  # Schließt Migrations aus
+    "*/tests/*",       # Optional: Tests selbst ausschließen
+    "*/__init__.py",   # Optional: Leere __init__-Dateien ausschließen
+    "*/wsgi.py",       # Optional: WSGI-Datei ausschließen
+    "*/asgi.py",       # Optional: ASGI-Datei ausschließen
+    "*/manage.py",     # Optional: manage.py ausschließen
 ]
