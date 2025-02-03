@@ -38,7 +38,7 @@ class InventoryItemSerializer(serializers.ModelSerializer):
 class CharacterSerializer(serializers.ModelSerializer):
     """Serializer for the Character model."""
 
-    inventory = InventoryItemSerializer(many=True)
+    inventory = InventoryItemSerializer(many=True, required=False)
 
     class Meta:
         """Meta class for CharacterSerializer."""
