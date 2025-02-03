@@ -2,7 +2,8 @@
 
 from typing import ClassVar
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User as AuthUser
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.urls import reverse
@@ -11,6 +12,7 @@ from django.utils.http import urlsafe_base64_encode
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 
+User = get_user_model()
 
 class RegisterSerializer(serializers.ModelSerializer):
     """Serializer for user registration."""
@@ -21,6 +23,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         """Meta class for RegisterSerializer."""
 
+        model = User
         fields: ClassVar[list[str]] = ["id", "username", "email", "password", "confirm_password", "date_of_birth"]
 
     def validate(self, data: dict) -> dict:
@@ -35,7 +38,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         return data
 
-    def create(self, validated_data: dict) -> User:
+    def create(self, validated_data: dict) -> AuthUser:
         """Create a new user with the validated data."""
         # Entfernen der confirm_password, da wir es nicht speichern müssen
         validated_data.pop("confirm_password")
